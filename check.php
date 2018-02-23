@@ -111,28 +111,25 @@
 		//$showall=checkall($username,$email,$month,$date,$year);
 	
 	//}
-	if(isset($_REQUEST['username'])){
+	if(isset($_REQUEST['SubmitAll'])){
 		$username=$_REQUEST['username'];
-		if(validName($username)== 1)
-		{
-			echo "Username:";
-			echo $username;
-	    }
-	}else{
-		echo "Username unvalied";
-	}
+        $email =$_REQUEST['email'];
+        $month =$_REQUEST['month'];
+        $date =$_REQUEST['date'];
+        $year =$_REQUEST['year'];
+        checkall($username,$email,$month,$date,$year);
+        
+    }
 ?>
 
-<form action="check.php" method="POST" >
+<form action="#" method="POST" >
 	<input type="text" name="username" value="" placeholder="username"><br/>
-    <input type="submit" name="SubmitName" value="SubmitName">
-</form>
-<form action="check.php" method="POST" >
+
+
     <h2>EMAIL</h2>
 	<input type="text" name="email" value="" placeholder="anything@example.com"><br/>
-	<input type="submit" name="SubmitEmail" value="SubmitEmail">
-</form>
-<form action="check.php" method="POST" >
+
+
     <h2>DATE OF BIRTH</h2>
 	<table>
 	<tr>
@@ -146,7 +143,7 @@
 	<th><input type="text" name="year" value="" placeholder="year"></th>
     </tr>
 	</table>
-<input type="submit" name="SubmitDob" value="SubmitDob">
+<input type="submit" name="SubmitAll" value="Submit">
 	</form>
 
 
