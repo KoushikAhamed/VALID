@@ -6,19 +6,38 @@
 		//		if($username[$i]==preg_match("/^[A-Za-z -.]*$/"))){
 	
 	
-	if(isset($_REQUEST['submitName']))
-	{
-		$username = $_REQUEST['username'];
-		$email=$_REQUEST['email'];
+	//if(isset($_REQUEST['submitName']))
+	//{
+		//$username = $_REQUEST['username'];
+		//$email=$_REQUEST['email'];
 		
-		function spaceName($username){
-			if(preg_match("/^[A-Za-z -.]*$/",$username){
-		       return 1;
-		    }else
+		function catName($username){
+			if(preg_match("/^[A-Z]$/",$username)){
+		       if(preg_match("/^[A-Z a-z -.]*$/",$username))
 				{
-				   return 0;				    
-				   }
+				   return 1;				    
+				}else{
+					return 0;
+				}
 			}
+		}
+		function spaceName($username){
+			$space = ' ' ;
+			for($i=0 ; $i<strlen($username) ; $i++ ){
+				if($username === $space){
+					return 1;
+				}else{
+					return 0 ;
+				}
+			}
+		}
+		function validName($username){
+			if(catName($username)==1 || spaceName($username) == 1){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
 		 //$find = 'gmail.com';
          //$find1 = 'yahoo.com';
 		 //$nameLen=strlen($username);
@@ -29,28 +48,79 @@
 			  
        	 if ($check == 'com') {
 			 if($check1 == 'gmail' || $check1 == 'yahoo' ){
-				 return 1 ;}else{
-		            return 0 ; }
+				 return 1 ;
+				}else{
+		            return 0 ;
+					}
 		 }
 		}
-	 $mail=iscontain($email);
-	 $validName = spaceName($username);
-	 
-		if ($validName == 0 ){
+		function validMonth($month){
+			if($month>=1 || $month <= 12){
+			   return 1;
+			}else{
+				return 0;
+			}
+		}
+		function validDate($date){
+			if($date>=1 || $date <= 31){
+			   return 1;
+			}else{
+				return 0;
+			}
+		}
+		function validYear($year){
+			if($year>=1953 || $year <= 1998){
+			   return 1;
+			}else{
+				return 0;
+			}
+		}
+		function validDob($month,$date,$year){
+			if(validMonth($month)== 1 || validDate($date) == 1 ){
+				if(validYear($year)==1){
+					return 1;
+				}else{
+					return 0;
+				}
+			}
+		}
+	 //$mail=iscontain($email);
+	 //$validName = spaceName($username);
+	    function checkall($username,$email,$month,$date,$year){
+		
+		
+		    if (validName($username) == 0 ){
 			echo "give user name!";
-			
-		} elseif ($mail== 0 ){
-			echo "invalid mail";
-		}
-		else{
-			echo "Username: ".$username."<br/> Email: ".$email."<br/><br/>";
-			echo "Month: ".$month."<br/><br/>";
-		}
-	}
-	//if(isset($_REQUEST['SubmitEmail'])){
-	//	
-	//}
+			}
+			else{
+			echo "user name:" .$username;
+			}
+		    if(iscontain($email)== 0){
+			echo "invalid email!";
+		    }else{
+				echo "Email: ".$email."<br/><br/>";
+			    echo "Username: ".$username."<br/> Email: ".$email."<br/><br/>";
+			    echo "Month: ".$month."<br/><br/>";
+     	    }
+		    if (validDob($month,$date,$year)== 0){
+			    echo "put your dob";
+		    }else{
+				echo "your dob:".$month."-".$date."-".$year;
+			}
+	    }
+		//$showall=checkall($username,$email,$month,$date,$year);
 	
+	//}
+	if(isset($_REQUEST['username'])){
+		$username=$_REQUEST['username'];
+		if(validName($username)== 1)
+		{
+			echo "Username:";
+			echo $username;
+	    }
+	}else{
+		echo "Username unvalied";
+	}
 ?>
 
 <form action="check.php" method="POST" >
@@ -78,6 +148,7 @@
 	</table>
 <input type="submit" name="SubmitDob" value="SubmitDob">
 	</form>
+
 
 
 
